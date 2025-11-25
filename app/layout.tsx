@@ -36,13 +36,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // Only show footer on the root path
+  const isLandingPage = typeof window !== 'undefined' ? window.location.pathname === '/' : false;
+  
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`font-sans antialiased flex flex-col min-h-screen`}>
         <main className="flex-grow">
           {children}
         </main>
-        <FooterWithPanels />
+        {isLandingPage && <FooterWithPanels />}
         <Analytics />
       </body>
     </html>

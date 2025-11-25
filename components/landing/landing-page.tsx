@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button"
 import { SignInModal } from "./sign-in-modal"
 import { RegisterModal } from "./register-modal"
 import { FooterWithPanels } from "./footer-with-panels"
-import { BookOpen } from "lucide-react"
 import dynamic from 'next/dynamic';
 
 // Dynamically import the VoxelWorkspace component with SSR disabled
@@ -56,45 +55,36 @@ const LandingPage = () => {
       
       {/* Main content */}
       <div className="relative z-20 w-full min-h-screen flex flex-col pointer-events-none">
-        <div className="pointer-events-auto">
-          <div className="flex-1 flex items-center justify-center px-4">
-            <div className="text-center space-y-8 max-w-md w-full fade-in">
-              {/* Logo and branding */}
-              <div className="flex items-center justify-center gap-2 mb-4">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <BookOpen className="w-6 h-6 text-primary" />
-                </div>
-              </div>
-
-              {/* Main headline - Simplified */}
-              <div className="space-y-4">
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  AI-verified learning + professor endorsements — an immutable academic registry for real skills.
-                </p>
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
-                <Button
-                  onClick={() => setShowSignIn(true)}
-                  className="px-8 py-6 text-base font-medium bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg transition-all hover:scale-105 hover:shadow-lg"
-                >
-                  Sign In
-                </Button>
-                <Button
-                  onClick={() => setShowRegister(true)}
-                  variant="outline"
-                  className="px-8 py-6 text-base font-medium border-2 border-secondary text-secondary hover:bg-secondary/10 rounded-lg transition-all hover:scale-105"
-                >
-                  Register
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-        
+        {/* Footer at the top */}
         <div className="pointer-events-auto">
           <FooterWithPanels onSendMessage={handleSendMessage} />
+        </div>
+        
+        {/* Main content with 3cm margin from footer */}
+        <div className="flex-1 flex items-center justify-center px-4 mt-[3cm]">
+          <div className="text-center space-y-8 max-w-md w-full fade-in">
+            {/* Text above buttons */}
+            <p className="text-lg leading-relaxed mb-6" style={{ color: '#FFFAF1' }}>
+              AI-verified learning + professor endorsements — an immutable academic registry for real skills.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
+              <Button
+                onClick={() => setShowSignIn(true)}
+                className="px-8 py-6 text-base font-medium bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg transition-all hover:scale-105 hover:shadow-lg"
+              >
+                Sign In
+              </Button>
+              <Button
+                onClick={() => setShowRegister(true)}
+                variant="outline"
+                className="px-8 py-6 text-base font-medium border-2 border-secondary text-secondary hover:bg-secondary/10 rounded-lg transition-all hover:scale-105"
+              >
+                Register
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
 

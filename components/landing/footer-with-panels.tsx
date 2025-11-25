@@ -682,35 +682,12 @@ export function FooterWithPanels({ onSendMessage }: FooterWithPanelsProps) {
   }
 
   return (
-    <>
-      {open && (
-        <div
-          className="fixed inset-0 z-30 bg-black/20 backdrop-blur-sm md:bg-black/10"
-          onClick={() => setOpen(null)}
-          aria-hidden="true"
-        />
-      )}
-
-      <div className={`fixed left-0 right-0 bottom-0 z-40 flex justify-center pointer-events-none`}>
-        <div
-          className={`w-full md:max-w-5xl px-4 pb-4 pointer-events-auto transition-all duration-220 ease-out`}
-          style={{
-            transform: open ? "translateY(0%)" : "translateY(110%)",
-          }}
-          aria-hidden={!open}
-        >
-          {open && (
-            <div className={`${isMobile ? "h-screen" : ""}`}>
-              <Panel keyName={open} />
-            </div>
-          )}
-        </div>
-      </div>
-
-      <footer className="bg-[#F7EFE0] border-t" style={{ borderColor: "rgba(59,59,59,0.04)" }}>
-        <div className="max-w-6xl mx-auto px-4 py-6 md:py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div className="fixed top-0 left-0 right-0 z-40">
+      {/* Main Footer Bar - Now at Top */}
+      <footer className="bg-[#F7EFE0] border-b shadow-sm" style={{ borderColor: "rgba(59,59,59,0.04)" }}>
+        <div className="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="font-serif text-lg" style={{ color: "#3B3B3B" }}>
+            <div className="font-serif text-lg font-semibold" style={{ color: "#3B3B3B" }}>
               Research Commons
             </div>
             <div className="text-sm text-[#7B5A3C] hidden md:block">AI-verified learning & academic registry</div>
@@ -770,6 +747,22 @@ export function FooterWithPanels({ onSendMessage }: FooterWithPanelsProps) {
           </div>
         </div>
       </footer>
-    </>
+
+      {/* Panel Overlay */}
+      {open && (
+        <div
+          className="fixed inset-0 z-30 bg-black/20 backdrop-blur-sm"
+          onClick={() => setOpen(null)}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Panel Content - Appears below the header */}
+      <div className={`relative z-40 w-full bg-white shadow-lg transition-all duration-300 ease-out ${open ? 'max-h-screen' : 'max-h-0 overflow-hidden'}`}>
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          {open && <Panel keyName={open} />}
+        </div>
+      </div>
+    </div>
   )
 }

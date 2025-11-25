@@ -40,7 +40,7 @@ const LandingPage = () => {
 
   return (
     <div className="relative w-full min-h-screen overflow-hidden">
-      {/* 3D Scene - Full viewport with enhanced visibility */}
+      {/* 3D Scene - Interactive background */}
       <div className="fixed inset-0 w-full h-full z-0">
         <VoxelWorkspace />
       </div>
@@ -49,40 +49,43 @@ const LandingPage = () => {
       <div 
         className="fixed inset-0 z-10 pointer-events-none"
         style={{
-          background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)'
+          background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
         }}
-      />
-      
-      {/* Main content */}
-      <div className="relative z-20 w-full min-h-screen flex flex-col pointer-events-none">
-        {/* Footer at the top */}
-        <div className="pointer-events-auto">
-          <FooterWithPanels onSendMessage={handleSendMessage} />
-        </div>
-        
-        {/* Main content with 3cm margin from footer */}
-        <div className="flex-1 flex items-center justify-center px-4 mt-[3cm]">
-          <div className="text-center space-y-8 max-w-md w-full fade-in">
-            {/* Text above buttons */}
-            <p className="text-lg leading-relaxed mb-6" style={{ color: '#FFFAF1' }}>
-              AI-verified learning + professor endorsements — an immutable academic registry for real skills.
-            </p>
+      >
+        {/* Content container */}
+        <div className="relative z-20 w-full h-full">
+          {/* Interactive UI elements */}
+          <div className="pointer-events-auto">
+          {/* Footer at the top */}
+          <div>
+            <FooterWithPanels onSendMessage={handleSendMessage} />
+          </div>
+          
+          {/* Main content with 3cm margin from footer */}
+          <div className="flex-1 flex items-center justify-center px-4 mt-[3cm] w-full">
+            <div className="text-center space-y-8 max-w-md w-full fade-in">
+              {/* Text above buttons */}
+              <p className="text-lg leading-relaxed mb-6" style={{ color: '#FFFAF1' }}>
+                AI-verified learning + professor endorsements — an immutable academic registry for real skills.
+              </p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
-              <Button
-                onClick={() => setShowSignIn(true)}
-                className="px-8 py-6 text-base font-medium bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg transition-all hover:scale-105 hover:shadow-lg"
-              >
-                Sign In
-              </Button>
-              <Button
-                onClick={() => setShowRegister(true)}
-                variant="outline"
-                className="px-8 py-6 text-base font-medium border-2 border-secondary text-secondary hover:bg-secondary/10 rounded-lg transition-all hover:scale-105"
-              >
-                Register
-              </Button>
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
+                <Button
+                  onClick={() => setShowSignIn(true)}
+                  className="px-8 py-6 text-base font-medium bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg transition-all hover:scale-105 hover:shadow-lg"
+                >
+                  Sign In
+                </Button>
+                <Button
+                  onClick={() => setShowRegister(true)}
+                  variant="outline"
+                  className="px-8 py-6 text-base font-medium border-2 border-secondary text-secondary hover:bg-secondary/10 rounded-lg transition-all hover:scale-105"
+                >
+                  Register
+                </Button>
+              </div>
+            </div>
             </div>
           </div>
         </div>

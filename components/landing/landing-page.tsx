@@ -4,7 +4,6 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { SignInModal } from "./sign-in-modal"
 import { RegisterModal } from "./register-modal"
-import { FooterWithPanels } from "./footer-with-panels"
 import { BookOpen } from "lucide-react"
 
 export function LandingPage() {
@@ -76,8 +75,6 @@ export function LandingPage() {
           </div>
         </div>
       </div>
-
-      <FooterWithPanels onSendMessage={handleSendMessage} />
 
       {/* Modals */}
       {showSignIn && (

@@ -65,7 +65,7 @@ const LandingPage = () => {
           <div className="flex-1 flex items-center justify-center px-4 mt-[3cm] w-full">
             <div className="text-center space-y-8 max-w-md w-full fade-in">
               {/* Text above buttons */}
-              <p className="text-lg leading-relaxed mb-6" style={{ color: '#FFFAF1' }}>
+              <p className="text-lg leading-relaxed mb-6 text-black">
                 AI-verified learning + professor endorsements — an immutable academic registry for real skills.
               </p>
 

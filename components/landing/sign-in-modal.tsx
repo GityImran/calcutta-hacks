@@ -2,7 +2,9 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button"
 import { X } from "lucide-react"
 
@@ -13,16 +15,34 @@ interface SignInModalProps {
 }
 
 export function SignInModal({ isOpen, onClose, onSwitchToRegister }: SignInModalProps) {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
 
   if (!isOpen) return null
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Navigate to dashboard
-    window.location.href = "/dashboard"
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+
+    const res = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+
+    if (res?.ok) {
+      router.push("/dashboard");
+    } else if (res?.error === "EMAIL_NOT_VERIFIED") {
+      setError("Please verify your email first. Check your inbox for the verification code.");
+    } else {
+      setError("Invalid email or password");
+    }
+    setIsLoading(false);
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 scale-in">
@@ -37,6 +57,9 @@ export function SignInModal({ isOpen, onClose, onSwitchToRegister }: SignInModal
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          {error && (
+            <div className="p-3 bg-red-50 text-red-700 rounded-lg text-sm">{error}</div>
+          )}
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">Email</label>
             <input
@@ -62,9 +85,10 @@ export function SignInModal({ isOpen, onClose, onSwitchToRegister }: SignInModal
 
           <Button
             type="submit"
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-2 rounded-lg transition-all"
+            disabled={isLoading}
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-2 rounded-lg transition-all disabled:opacity-70"
           >
-            Sign In
+            {isLoading ? "Signing In..." : "Sign In"}
           </Button>
         </form>
 
